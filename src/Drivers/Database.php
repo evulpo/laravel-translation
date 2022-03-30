@@ -80,11 +80,11 @@ class Database extends Translation implements DriverInterface
     public function addLanguage($language, $name = null)
     {
         if ($this->languageExists($language)) {
-            throw new LanguageExistsException(__('translation::errors.language_exists', ['language' => $language]));
+            throw new LanguageExistsException(__('translation::errors.language_exists', ['locale' => $language]));
         }
 
         Language::create([
-            'language' => $language,
+            'locale' => $language,
             'name' => $name,
         ]);
     }
@@ -103,7 +103,7 @@ class Database extends Translation implements DriverInterface
             $this->addLanguage($language);
         }
 
-        Language::where('language', $language)
+        Language::where('locale', $language)
             ->first()
             ->translations()
             ->updateOrCreate([
@@ -130,7 +130,7 @@ class Database extends Translation implements DriverInterface
             $this->addLanguage($language);
         }
 
-        Language::where('language', $language)
+        Language::where('locale', $language)
             ->first()
             ->translations()
             ->updateOrCreate([
@@ -225,7 +225,7 @@ class Database extends Translation implements DriverInterface
      */
     private function getLanguage($language)
     {
-        return Language::where('language', $language)->first();
+        return Language::where('locale', $language)->first();
     }
 
     /**
