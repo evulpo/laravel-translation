@@ -11,7 +11,7 @@ return [
     | Supported: "file", "database"
     |
     */
-    'driver' => 'file',
+    'driver' => 'database',
 
     /*
     |--------------------------------------------------------------------------
@@ -72,6 +72,6 @@ return [
 
         'languages_table' => 'languages',
 
-        'translations_table' => 'translations',
+        'translations_table' => 'ltm_translations',
     ],
 ];
