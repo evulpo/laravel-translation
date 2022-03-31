@@ -11,7 +11,7 @@ return [
     | Supported: "file", "database"
     |
     */
-    'driver' => 'database',
+    'driver' => env('TMS_DRIVER'),
 
     /*
     |--------------------------------------------------------------------------
@@ -23,7 +23,7 @@ return [
     |
     */
     'route_group_config' => [
-        'middleware' => 'web',
+        'middleware' => ['web', 'auth'],
     ],
 
     /*
