@@ -109,10 +109,12 @@ class Database extends Translation implements DriverInterface
             ->updateOrCreate([
                 'group' => $group,
                 'key' => $key,
+                'locale' => $language,
             ], [
                 'group' => $group,
                 'key' => $key,
                 'value' => $value,
+                'locale' => $language,
             ]);
     }
 
@@ -136,9 +138,11 @@ class Database extends Translation implements DriverInterface
             ->updateOrCreate([
                 'group' => $vendor,
                 'key' => $key,
+                'locale' => $language,
             ], [
                 'key' => $key,
                 'value' => $value,
+                'locale' => $language,
             ]);
     }
 
