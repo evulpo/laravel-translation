@@ -22,8 +22,8 @@ class Translation extends Model
 
     public static function getGroupsForLanguage($language)
     {
-        return static::whereHas('locale', function ($q) use ($language) {
-            $q->where('locale', $language);
+        return static::whereHas('language', function ($q) use ($language) {
+            $q->where('language', $language);
         })->whereNotNull('group')
             ->where('group', 'not like', '%single')
             ->select('group')

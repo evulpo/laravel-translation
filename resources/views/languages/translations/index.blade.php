@@ -2,7 +2,7 @@
 
 @section('body')
 
-    <form action="{{ route('languages.translations.index', ['locale' => $language]) }}" method="get">
+    <form action="{{ route('languages.translations.index', ['language' => $language]) }}" method="get">
 
         <div class="panel">
 
@@ -14,7 +14,7 @@
 
                     @include('translation::forms.search', ['name' => 'filter', 'value' => Request::get('filter')])
 
-                    @include('translation::forms.select', ['name' => 'locale', 'items' => $languages, 'submit' => true, 'selected' => $language])
+                    @include('translation::forms.select', ['name' => 'language', 'items' => $languages, 'submit' => true, 'selected' => $language])
 
                     <div class="sm:hidden lg:flex items-center">
 

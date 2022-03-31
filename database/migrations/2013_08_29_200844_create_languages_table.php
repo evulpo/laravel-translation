@@ -18,7 +18,7 @@ class CreateLanguagesTable extends Migration
             ->create(config('translation.database.languages_table'), function (Blueprint $table) {
                 $table->increments('id');
                 $table->string('name')->nullable();
-                $table->string('locale');
+                $table->string('language');
                 $table->timestamps();
             });
 
@@ -29,7 +29,7 @@ class CreateLanguagesTable extends Migration
 
         foreach ($initialLanguages as $language) {
             Language::firstOrCreate([
-                'locale' => $language,
+                'language' => $language,
             ]);
         }
     }

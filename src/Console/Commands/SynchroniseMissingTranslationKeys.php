@@ -25,7 +25,7 @@ class SynchroniseMissingTranslationKeys extends BaseCommand
      */
     public function handle()
     {
-        $language = $this->argument('locale') ?: false;
+        $language = $this->argument('language') ?: false;
 
         try {
             // if we have a language, pass it in, if not the method will

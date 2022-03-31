@@ -112,15 +112,15 @@ class SynchroniseTranslationsCommand extends Command
         $this->toDriver = $this->createDriver($this->toDriver);
 
         // If the language argument is set.
-        if ($this->argument('locale')) {
+        if ($this->argument('language')) {
 
             // If all languages should be synced.
-            if ($this->argument('locale') == 'all') {
+            if ($this->argument('language') == 'all') {
                 $language = false;
             }
             // When a specific language is set and is valid.
-            elseif (in_array($this->argument('locale'), $languages)) {
-                $language = $this->argument('locale');
+            elseif (in_array($this->argument('language'), $languages)) {
+                $language = $this->argument('language');
             } else {
                 return $this->error(__('translation::translation.invalid_language'));
             }
