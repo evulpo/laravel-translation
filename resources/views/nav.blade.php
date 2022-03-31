@@ -6,7 +6,7 @@
         <li>
             <a href="{{ route('languages.index') }}" class="{{ set_active('') }}{{ set_active('/create') }}">
                 @include('translation::icons.globe')
-                {{ __('translation::translation.languages') }}
+                Languages
             </a>
         </li>
         <li>

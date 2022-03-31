@@ -28,6 +28,6 @@ class LanguageNotExists implements Rule
      */
     public function message()
     {
-        return __('translation::translation.language_exists');
+        return "The language ".$language." already exists";
     }
 }
