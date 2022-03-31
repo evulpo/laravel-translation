@@ -8,12 +8,12 @@
 
             <div class="panel-header">
 
-                {{ __('translation::translation.languages') }}
+            {{__('Languages')}}
 
                 <div class="flex flex-grow justify-end items-center">
 
                     <a href="{{ route('languages.create') }}" class="button">
-                        {{ __('translation::translation.add') }}
+                        {{ __('+ Add') }}
                     </a>
 
                 </div>
@@ -26,8 +26,8 @@
 
                     <thead>
                         <tr>
-                            <th>{{ __('translation::translation.language_name') }}</th>
-                            <th>{{ __('translation::translation.locale') }}</th>
+                            <th>{{ __('Name') }}</th>
+                            <th>{{ __('Locale') }}</th>
                         </tr>
                     </thead>
 

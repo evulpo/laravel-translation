@@ -62,7 +62,7 @@ class LanguageTranslationController extends Controller
 
         return redirect()
             ->route('languages.translations.index', $language)
-            ->with('success', __('translation::translation.translation_added'));
+            ->with('success', __('New translation added successfull 🙌'));
     }
 
     public function update(Request $request, $language)

@@ -42,11 +42,11 @@ class ListMissingTranslationKeys extends BaseCommand
 
         // if no missing translations, inform the user and move on with your day
         if ($empty) {
-            return $this->info(__('translation::translation.no_missing_keys'));
+            return $this->info(__('There are no missing translation keys in the app 🎉'));
         }
 
         // set some headers for the table of results
-        $headers = [__('translation::translation.language'), __('translation::translation.type'), __('translation::translation.group'), __('translation::translation.key')];
+        $headers = [__('tLanguage'), __('Type'), __('Group'), __('Key')];
 
         // iterate over each of the missing languages
         foreach ($missingTranslations as $language => $types) {

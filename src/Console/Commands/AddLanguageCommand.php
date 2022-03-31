@@ -26,13 +26,13 @@ class AddLanguageCommand extends BaseCommand
     public function handle()
     {
         // ask the user for the language they wish to add
-        $language = $this->ask(__('translation::translation.prompt_language'));
-        $name = $this->ask(__('translation::translation.prompt_name'));
+        $language = $this->ask(__('Enter the language code you would like to add (e.g. fr_CH)'));
+        $name = $this->ask(__('Enter the locale-tag of the language you would like to add (e.g fr_CH)'));
 
         // attempt to add the key and fail gracefully if exception thrown
         try {
             $this->translation->addLanguage($language, $name);
-            $this->info(__('translation::translation.language_added'));
+            $this->info(__('New language added successfully 🙌'));
         } catch (\Exception $e) {
             $this->error($e->getMessage());
         }

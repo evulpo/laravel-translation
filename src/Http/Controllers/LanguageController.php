@@ -34,6 +34,6 @@ class LanguageController extends Controller
 
         return redirect()
             ->route('languages.index')
-            ->with('success', __('translation::translation.language_added'));
+            ->with('success', __('tNew language added successfully 🙌'));
     }
 }

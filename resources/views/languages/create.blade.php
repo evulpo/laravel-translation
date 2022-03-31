@@ -6,7 +6,7 @@
 
         <div class="panel-header">
 
-            {{ __('translation::translation.add_language') }}
+            {{ __('Add a new language') }}
 
         </div>
 
@@ -18,9 +18,9 @@
 
                 <div class="panel-body p-4">
 
-                    @include('translation::forms.text', ['field' => 'name', 'label' => __('translation::translation.language_name'), ])
+                    @include('translation::forms.text', ['field' => 'name', 'label' => __('Name'), ])
 
-                    @include('translation::forms.text', ['field' => 'locale', 'label' => __('translation::translation.locale'), ])
+                    @include('translation::forms.text', ['field' => 'locale', 'label' => __('Locale'), ])
 
                 </div>
 
@@ -29,7 +29,7 @@
             <div class="panel-footer flex flex-row-reverse">
 
                 <button class="button button-blue">
-                    {{ __('translation::translation.save') }}
+                    {{ __('Save') }}
                 </button>
 
             </div>

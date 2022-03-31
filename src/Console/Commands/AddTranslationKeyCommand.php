@@ -25,18 +25,18 @@ class AddTranslationKeyCommand extends BaseCommand
      */
     public function handle()
     {
-        $language = $this->ask(__('translation::translation.prompt_language_for_key'));
+        $language = $this->ask(__('Enter the language for the key (e.g. en)'));
 
         // we know this should be single or group so we can use the `anticipate`
         // method to give our users a helping hand
-        $type = $this->anticipate(__('translation::translation.prompt_type'), ['single', 'group']);
+        $type = $this->anticipate(__('Is this a json or array key?'), ['single', 'group']);
 
         // if the group type is selected, prompt for the group key
         if ($type === 'group') {
-            $file = $this->ask(__('translation::translation.prompt_group'));
+            $file = $this->ask(__('What is the group for this translation?'));
         }
-        $key = $this->ask(__('translation::translation.prompt_key'));
-        $value = $this->ask(__('translation::translation.prompt_value'));
+        $key = $this->ask(__('What is the key for this translation?'));
+        $value = $this->ask(__('What is the value for this translation?'));
 
         // attempt to add the key for single or group and fail gracefully if
         // exception is thrown
@@ -44,7 +44,7 @@ class AddTranslationKeyCommand extends BaseCommand
             try {
                 $this->translation->addSingleTranslation($language, 'single', $key, $value);
 
-                return $this->info(__('translation::translation.language_key_added'));
+                return $this->info(__('New language key added successfully 👏'));
             } catch (\Exception $e) {
                 return $this->error($e->getMessage());
             }
@@ -53,12 +53,12 @@ class AddTranslationKeyCommand extends BaseCommand
                 $file = str_replace('.php', '', $file);
                 $this->translation->addGroupTranslation($language, $file, $key, $value);
 
-                return $this->info(__('translation::translation.language_key_added'));
+                return $this->info(__('New language key added successfully 👏'));
             } catch (\Exception $e) {
                 return $this->error($e->getMessage());
             }
         } else {
-            return $this->error(__('translation::translation.type_error'));
+            return $this->error(__('Translation type must be json or array'));
         }
     }
 }

@@ -6,7 +6,7 @@
 
         <div class="panel-header">
 
-            {{ __('translation::translation.add_translation') }}
+            {{ __('Add a translation') }}
 
         </div>
 
@@ -18,21 +18,21 @@
 
                 <div class="panel-body p-4">
 
-                    @include('translation::forms.text', ['field' => 'group', 'label' => __('translation::translation.group_label'), 'placeholder' => __('translation::translation.group_placeholder')])
+                    @include('translation::forms.text', ['field' => 'group', 'label' => __('Group (Optional)'), 'placeholder' => __('e.g. validation')])
                     
-                    @include('translation::forms.text', ['field' => 'key', 'label' => __('translation::translation.key_label'), 'placeholder' => __('translation::translation.key_placeholder')])
+                    @include('translation::forms.text', ['field' => 'key', 'label' => __('Key'), 'placeholder' => __('e.g. invalid_key')])
 
-                    @include('translation::forms.text', ['field' => 'value', 'label' => __('translation::translation.value_label'), 'placeholder' => __('translation::translation.value_placeholder')])
+                    @include('translation::forms.text', ['field' => 'value', 'label' => __('Value'), 'placeholder' => __('e.g. Keys must be a single string')])
                     
                     <div class="input-group">
 
-                        <button v-on:click="toggleAdvancedOptions" class="text-blue">{{ __('translation::translation.advanced_options') }}</button>
+                        <button v-on:click="toggleAdvancedOptions" class="text-blue">{{ __('Toggle advanced options') }}</button>
 
                     </div>
 
                     <div v-show="showAdvancedOptions">
 
-                        @include('translation::forms.text', ['field' => 'namespace', 'label' => __('translation::translation.namespace_label'), 'placeholder' => __('translation::translation.namespace_placeholder')])
+                        @include('translation::forms.text', ['field' => 'namespace', 'label' => __('Namespace (Optional)'), 'placeholder' => __('e.g. my_package')])
                     
                     </div>
 
@@ -44,7 +44,7 @@
             <div class="panel-footer flex flex-row-reverse">
 
                 <button class="button button-blue">
-                    {{ __('translation::translation.save') }}
+                    {{ __('Save') }}
                 </button>
 
             </div>

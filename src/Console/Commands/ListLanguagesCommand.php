@@ -25,7 +25,7 @@ class ListLanguagesCommand extends BaseCommand
      */
     public function handle()
     {
-        $headers = [__('translation::translation.language_name'), __('translation::translation.language')];
+        $headers = [__('Name'), __('Language')];
         $languages = $this->translation->allLanguages()->toArray();
         $mappedLanguages = [];
 
