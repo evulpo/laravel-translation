@@ -11,7 +11,7 @@ return [
     | Supported: "file", "database"
     |
     */
-    'driver' => env('TMS_DRIVER'),
+    'driver' => env('TMS_DRIVER', file),
 
     /*
     |--------------------------------------------------------------------------
