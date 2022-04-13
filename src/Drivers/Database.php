@@ -2,6 +2,7 @@
 
 namespace JoeDixon\Translation\Drivers;
 
+use App\Jobs\SyncGlobalDB;
 use Illuminate\Support\Collection;
 use JoeDixon\Translation\Exceptions\LanguageExistsException;
 use JoeDixon\Translation\Language;
@@ -87,6 +88,10 @@ class Database extends Translation implements DriverInterface
             'language' => $language,
             'name' => $name,
         ]);
+
+        $job = (new SyncGlobalDB());
+        dispatch($job);
+
     }
 
     /**
@@ -116,6 +121,10 @@ class Database extends Translation implements DriverInterface
                 'value' => $value,
                 'locale' => $language,
             ]);
+        
+        $job = (new SyncGlobalDB());
+        dispatch($job);
+    
     }
 
     /**
@@ -144,6 +153,10 @@ class Database extends Translation implements DriverInterface
                 'value' => $value,
                 'locale' => $language,
             ]);
+
+        $job = (new SyncGlobalDB());
+        dispatch($job);
+    
     }
 
     /**
