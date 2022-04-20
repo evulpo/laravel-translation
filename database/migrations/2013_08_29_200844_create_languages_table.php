@@ -40,7 +40,6 @@ class CreateLanguagesTable extends Migration
      */
     public function down()
     {
-        Schema::connection(config('translation.database.connection'))
-            ->dropIfExists(config('translation.database.languages_table'));
+        Schema::dropIfExists(config('translation.database.languages_table'));
     }
 }
