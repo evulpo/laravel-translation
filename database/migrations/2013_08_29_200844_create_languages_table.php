@@ -14,8 +14,7 @@ class CreateLanguagesTable extends Migration
      */
     public function up()
     {
-        Schema::connection(config('translation.database.connection'))
-            ->create(config('translation.database.languages_table'), function (Blueprint $table) {
+        Schema::create(config('translation.database.languages_table'), function (Blueprint $table) {
                 $table->increments('id');
                 $table->string('name')->nullable();
                 $table->string('language');
