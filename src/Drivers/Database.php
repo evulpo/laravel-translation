@@ -2,6 +2,7 @@
 
 namespace JoeDixon\Translation\Drivers;
 
+use App\Jobs\SyncGlobalLanguages;
 use App\Jobs\SyncGlobalDB;
 use Illuminate\Support\Collection;
 use JoeDixon\Translation\Exceptions\LanguageExistsException;
