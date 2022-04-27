@@ -89,7 +89,7 @@ class Database extends Translation implements DriverInterface
             'name' => $name,
         ]);
 
-        $job = (new SyncGlobalDB($language));
+        $job = (new SyncGlobalLanguages());
         dispatch($job);
 
     }
