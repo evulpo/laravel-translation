@@ -14,22 +14,24 @@ class CreateLanguagesTable extends Migration
      */
     public function up()
     {
-        Schema::create(config('translation.database.languages_table'), function (Blueprint $table) {
-                $table->increments('id');
-                $table->string('name')->nullable();
-                $table->string('language');
-                $table->timestamps();
-            });
+        if(!Schema::hasTable(config('translation.database.languages_table'))){
+            Schema::create(config('translation.database.languages_table'), function (Blueprint $table) {
+                    $table->increments('id');
+                    $table->string('name')->nullable();
+                    $table->string('language');
+                    $table->timestamps();
+                });
 
-        $initialLanguages = array_unique([
-            config('app.fallback_locale'),
-            config('app.locale'),
-        ]);
-
-        foreach ($initialLanguages as $language) {
-            Language::firstOrCreate([
-                'language' => $language,
+            $initialLanguages = array_unique([
+                config('app.fallback_locale'),
+                config('app.locale'),
             ]);
+
+            foreach ($initialLanguages as $language) {
+                Language::firstOrCreate([
+                    'language' => $language,
+                ]);
+            }
         }
     }
 
