@@ -123,7 +123,7 @@ class Database extends Translation implements DriverInterface
                 'locale' => $language,
             ]);
         
-        $job = (new SyncGlobalDB($language));
+        $job = (new SyncGlobalDB($language,$key));
         dispatch($job);
     
     }
@@ -155,7 +155,7 @@ class Database extends Translation implements DriverInterface
                 'locale' => $language,
             ]);
 
-        $job = (new SyncGlobalDB($language));
+        $job = (new SyncGlobalDB($language,$key));
         dispatch($job);
     
     }
