@@ -20,7 +20,9 @@
 
                     @include('translation::forms.select', ['name' => 'group', 'items' => $groups, 'submit' => true, 'selected' => Request::get('group'), 'optional' => true])
                     
-                    
+                    <a href="{{ route('languages.translations.create', $language) }}" class="button">
+                        {{ __('+ Add') }}
+                    </a>
                 
                 </div>
 
