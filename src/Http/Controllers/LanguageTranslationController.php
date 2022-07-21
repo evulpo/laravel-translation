@@ -8,6 +8,9 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use JoeDixon\Translation\Drivers\Translation;
 use JoeDixon\Translation\Http\Requests\TranslationRequest;
+use JoeDixon\Translation\Language;
+use JoeDixon\Translation\Http\Requests\TranslationRequestAll;
+use JoeDixon\Translation\Drivers;	
 
 class LanguageTranslationController extends Controller
 {
@@ -46,9 +49,17 @@ class LanguageTranslationController extends Controller
         return view('translation::languages.translations.index', compact('language', 'languages', 'groups', 'translations'));
     }
 
-    public function create(Request $request, $language)
-    {
-        return view('translation::languages.translations.create', compact('language'));
+    public function create(Request $request, $language)	
+    {	
+        $languages = Language::get();	
+        	
+        $arr = [];	
+        foreach($languages as $i => $lang){	
+            if($lang['name'] !== Null){	
+                $arr[$i] = $lang['language'];	
+            }	
+        }	
+        return view('translation::languages.translations.create', compact('language', 'arr'));	
     }
 
     public function store(TranslationRequest $request, $language)
@@ -63,6 +74,26 @@ class LanguageTranslationController extends Controller
         return redirect()
             ->route('languages.translations.index', $language)
             ->with('success', __('New translation added successfull 🙌'));
+    }
+
+    public function storeAll(TranslationRequestAll $request, $language){	
+        	
+        $languages = Language::get();	
+        if ($request->filled('group')) {	
+            $namespace = $request->has('namespace') && $request->get('namespace') ? "{$request->get('namespace')}::" : '';	
+            foreach($languages as $i => $lang){	
+                $this->translation->addGroupTranslation($lang->name, strtolower("{$namespace}{$request->get('group')}"), strtolower($request->get('key')), $request['value'.$i]);	
+            }	
+            	
+        } else {	
+            foreach($languages as $i => $lang){	
+                $this->translation->addSingleTranslation($lang->name, 'single', strtolower($request->get('key')), $request['value'.$i]);	
+            }	
+        }	
+        return redirect()	
+            ->route('languages.translations.index', $language)	
+            ->with('success', __('New translations added successfull 🙌'));
+
     }
 
     public function update(Request $request, $language)

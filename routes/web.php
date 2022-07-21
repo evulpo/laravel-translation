@@ -21,4 +21,7 @@ Route::group(config('translation.route_group_config') + ['namespace' => 'JoeDixo
 
     $router->post(config('translation.ui_url').'/{language}/translations', 'LanguageTranslationController@store')
         ->name('languages.translations.store');
+
+    $router->post(config('translation.ui_url').'/{language}/translations', 'LanguageTranslationController@storeAll')
+        ->name('languages.translations.storeAll');
 });
