@@ -85,14 +85,41 @@ class Database extends Translation implements DriverInterface
             throw new LanguageExistsException("The language ".$language." already exists");
         }
 
-        Language::create([
+        $newlang = Language::create([
             'language' => $language,
             'name' => $name,
         ]);
 
+        $defaultLang = config('translation.default_lang');
+
+        $singleTrans = $this->getSingleTranslationsFor($defaultLang);
+        $groupTrans = $this->getGroupTranslationsFor($defaultLang);
+
+        $this->addTranslationsToLang($singleTrans, $language);
+        $this->addTranslationsToLang($groupTrans, $language);
+        
         $job = (new SyncGlobalLanguages());
         dispatch($job);
+    }
 
+    public function addTranslationsToLang($groupArray, $language)
+    {
+        foreach ($groupArray as $group => $outerArr){
+            foreach ($outerArr as $key => $trans){
+                Language::where('language', $language)
+                    ->first()
+                    ->translations()
+                    ->updateOrCreate([
+                        'group' => $group,
+                        'key' => $key,
+                        'locale' => $language,
+                    ], [
+                        'key' => $key,
+                        'value' => $trans,
+                        'locale' => $language,
+                    ]);
+            }
+        }
     }
 
     /**
