@@ -28,6 +28,6 @@ class LanguageNotExists implements Rule
      */
     public function message()
     {
-        return "The language ".$language." already exists";
+        return "The language already exists";
     }
 }
