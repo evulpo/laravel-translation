@@ -173,6 +173,18 @@ class Database extends Translation implements DriverInterface
             return $this->getSingleTranslationsFor($language);
         }
 
+
+        if(session()->has('translation_enabled')){
+            if(session()->get('translation_enabled') === false){
+                return $translations->map(function ($translations, $group) {
+                    return $translations->mapWithKeys(function ($translation) {
+                        return [$translation->key => $translation->group.'.'.$translation->key];
+                    });
+                });
+            }
+        }
+        
+
         return $translations->map(function ($translations, $group) {
             return $translations->mapWithKeys(function ($translation) {
                 return [$translation->key => $translation->value];
@@ -194,6 +206,16 @@ class Database extends Translation implements DriverInterface
             ->where('group', 'not like', '%single')
             ->get()
             ->groupBy('group');
+
+        if(session()->has('translation_enabled')){
+            if(session()->get('translation_enabled') === false){
+                return $translations->map(function ($translations, $group) {
+                    return $translations->mapWithKeys(function ($translation) {
+                        return [$translation->key => $translation->group.'.'.$translation->key];
+                    });
+                });
+            }
+        }
 
         return $translations->map(function ($translations) {
             return $translations->mapWithKeys(function ($translation) {
