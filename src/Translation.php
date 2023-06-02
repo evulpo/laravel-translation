@@ -18,6 +18,7 @@ class Translation extends Model
         parent::__construct($attributes);
         $this->connection = config('translation.database.connection');
         $this->table = config('translation.database.translations_table');
+        logger("STARTED");
     }
 
     protected function cacheForValue()
@@ -56,9 +57,10 @@ class Translation extends Model
             ->get();
     }
 
-    public function save(array $options = [])
+    public function updateOrCreate(array $options = [])
     {
-        $result = parent::save($options);
+        logger("SAVE CALLED");
+        $result = parent::updateOrCreate($options);
 
         if ($result) {
             $this->flushCache();
