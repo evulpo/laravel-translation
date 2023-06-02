@@ -18,6 +18,8 @@ class Translation extends Model
         parent::__construct($attributes);
         $this->connection = config('translation.database.connection');
         $this->table = config('translation.database.translations_table');
+        logger("STARTED");
+        Translation::flushQueryCache();
     }
 
     protected function cacheForValue()
@@ -56,12 +58,51 @@ class Translation extends Model
             ->get();
     }
 
-    public function fill(array $attributes)
+    public function save(array $options = [])
     {
-        parent::fill($attributes);
+        $result = parent::save($options);
 
-        logger("SAVE rrfrfrfrf CALLED");
-        Translation::flushQueryCache();
+        logger("ftr");
+        if ($result) {
+            Translation::flushQueryCache();
+        }
+
+        return $result;
     }
+
+
+    public static function updateOrCreate(array $attributes, array $values = [])
+    {
+        logger("SAVE rfrer CALLED");
+        $model = parent::updateOrCreate($attributes, $values);
+
+        Translation::flushQueryCache();
+
+        return $model;
+    }
+
+
+    public static function create(array $attributes = [])
+    {
+        logger("SAVE rr CALLED");
+        $model = parent::create($attributes);
+
+        Translation::flushQueryCache();
+
+        return $model;
+    }
+
+    public function update(array $attributes = [], array $options = [])
+    {
+        $result = parent::update($attributes, $options);
+
+        logger("SAVE rrfrf CALLED");
+        if ($result) {
+            Translation::flushQueryCache();
+        }
+
+        return $result;
+    }
+
 
 }
