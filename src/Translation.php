@@ -56,17 +56,4 @@ class Translation extends Model
             ->get();
     }
 
-    public static function updateOrCreate(array $attributes, array $values = [])
-    {
-        // Perform actions before updateOrCreate
-
-        $model = static::query()->updateOrCreate($attributes, $values);
-
-        // Perform actions after updateOrCreate
-
-        logger("GOT IT");
-        return $model;
-    }
-
-
 }

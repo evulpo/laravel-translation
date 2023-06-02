@@ -88,7 +88,7 @@ class Database extends Translation implements DriverInterface
             'name' => $name,
         ]);
 
-    
+        Language::flushQueryCache();
     }
 
     /**
@@ -118,6 +118,8 @@ class Database extends Translation implements DriverInterface
                 'value' => $value,
                 'locale' => $language,
             ]);
+
+        TranslationModel::flushQueryCache();
    
     }
 
@@ -147,6 +149,8 @@ class Database extends Translation implements DriverInterface
                 'value' => $value,
                 'locale' => $language,
             ]);
+
+        TranslationModel::flushQueryCache();
     }
 
     /**
