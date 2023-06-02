@@ -103,5 +103,23 @@ class Translation extends Model
         return $result;
     }
 
+    public function fill(array $attributes)
+{
+    parent::fill($attributes);
+
+    logger("SAVE rrfrfrfrf CALLED");
+    $this->flushCache();
+}
+
+
+public function fillOrFail(array $attributes)
+{
+    parent::fillOrFail($attributes);
+
+    logger("SAVE frrrfrf CALLED");
+    $this->flushCache();
+}
+
+
 
 }
