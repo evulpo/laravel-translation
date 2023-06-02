@@ -150,6 +150,7 @@ class Database extends Translation implements DriverInterface
                 'locale' => $language,
             ]);
 
+            logger("FLUSHING CACHE");
         TranslationModel::flushQueryCache();
     }
 
