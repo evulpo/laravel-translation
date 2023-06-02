@@ -57,15 +57,51 @@ class Translation extends Model
             ->get();
     }
 
-    public function updateOrCreate(array $options = [])
+    public function save(array $options = [])
     {
-        logger("SAVE CALLED");
-        $result = parent::updateOrCreate($options);
+        $result = parent::save($options);
 
+        logger("ftr");
         if ($result) {
             $this->flushCache();
         }
 
         return $result;
     }
+
+
+    public static function updateOrCreate(array $attributes, array $values = [])
+    {
+        logger("SAVE rfrer CALLED");
+        $model = parent::updateOrCreate($attributes, $values);
+
+        $model->flushCache();
+
+        return $model;
+    }
+
+
+    public static function create(array $attributes = [])
+    {
+        logger("SAVE rr CALLED");
+        $model = parent::create($attributes);
+
+        $model->flushCache();
+
+        return $model;
+    }
+
+    public function update(array $attributes = [], array $options = [])
+    {
+        $result = parent::update($attributes, $options);
+
+        logger("SAVE rrfrf CALLED");
+        if ($result) {
+            $this->flushCache();
+        }
+
+        return $result;
+    }
+
+
 }
