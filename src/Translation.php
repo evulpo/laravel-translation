@@ -19,6 +19,7 @@ class Translation extends Model
         $this->connection = config('translation.database.connection');
         $this->table = config('translation.database.translations_table');
         logger("STARTED");
+        $this->flushCache();
     }
 
     protected function cacheForValue()
