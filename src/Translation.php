@@ -56,50 +56,16 @@ class Translation extends Model
             ->get();
     }
 
-    public function save(array $options = [])
-    {
-        $result = parent::save($options);
-
-        logger("ftr");
-        if ($result) {
-            Translation::flushQueryCache();
-        }
-
-        return $result;
-    }
-
-
     public static function updateOrCreate(array $attributes, array $values = [])
     {
-        logger("SAVE rfrer CALLED");
-        $model = parent::updateOrCreate($attributes, $values);
+        // Perform actions before updateOrCreate
 
-        Translation::flushQueryCache();
+        $model = static::query()->updateOrCreate($attributes, $values);
 
+        // Perform actions after updateOrCreate
+
+        logger("GOT IT");
         return $model;
-    }
-
-
-    public static function create(array $attributes = [])
-    {
-        logger("SAVE rr CALLED");
-        $model = parent::create($attributes);
-
-        Translation::flushQueryCache();
-
-        return $model;
-    }
-
-    public function update(array $attributes = [], array $options = [])
-    {
-        $result = parent::update($attributes, $options);
-
-        logger("SAVE rrfrf CALLED");
-        if ($result) {
-            Translation::flushQueryCache();
-        }
-
-        return $result;
     }
 
 

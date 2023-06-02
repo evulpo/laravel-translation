@@ -45,14 +45,4 @@ class Language extends Model
         return $this->hasMany(Translation::class);
     }
 
-    public function updateOrCreate(array $options = [])
-    {
-        $result = parent::updateOrCreate($options);
-
-        if ($result) {
-            $this->flushCache();
-        }
-
-        return $result;
-    }
 }
