@@ -18,8 +18,6 @@ class Translation extends Model
         parent::__construct($attributes);
         $this->connection = config('translation.database.connection');
         $this->table = config('translation.database.translations_table');
-        logger("STARTED");
-        Translation::flushQueryCache();
     }
 
     protected function cacheForValue()
