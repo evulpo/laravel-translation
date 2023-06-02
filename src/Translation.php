@@ -9,7 +9,7 @@ class Translation extends Model
 {
     use QueryCacheable;
 
-    protected static $flushCacheOnUpdate = true;
+   // protected static $flushCacheOnUpdate = true;
 
     protected $guarded = [];
 
@@ -54,5 +54,16 @@ class Translation extends Model
             ->select('group')
             ->distinct()
             ->get();
+    }
+
+    public function save(array $options = [])
+    {
+        $result = parent::save($options);
+
+        if ($result) {
+            $this->flushCache();
+        }
+
+        return $result;
     }
 }
