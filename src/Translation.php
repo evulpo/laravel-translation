@@ -64,7 +64,7 @@ class Translation extends Model
 
         logger("ftr");
         if ($result) {
-            $this->flushCache();
+            Translation::flushQueryCache();
         }
 
         return $result;
@@ -76,7 +76,7 @@ class Translation extends Model
         logger("SAVE rfrer CALLED");
         $model = parent::updateOrCreate($attributes, $values);
 
-        $model->flushCache();
+        Translation::flushQueryCache();
 
         return $model;
     }
@@ -87,7 +87,7 @@ class Translation extends Model
         logger("SAVE rr CALLED");
         $model = parent::create($attributes);
 
-        $model->flushCache();
+        Translation::flushQueryCache();
 
         return $model;
     }
@@ -98,7 +98,7 @@ class Translation extends Model
 
         logger("SAVE rrfrf CALLED");
         if ($result) {
-            $this->flushCache();
+            Translation::flushQueryCache();
         }
 
         return $result;
@@ -109,7 +109,7 @@ class Translation extends Model
     parent::fill($attributes);
 
     logger("SAVE rrfrfrfrf CALLED");
-    $this->flushCache();
+    Translation::flushQueryCache();
 }
 
 
