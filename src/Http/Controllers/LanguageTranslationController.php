@@ -23,7 +23,6 @@ class LanguageTranslationController extends Controller
 
     public function index(Request $request, $language)
     {
-        // dd($this->translation->getSingleTranslationsFor('en'));
         if ($request->has('language') && $request->get('language') !== $language) {
             return redirect()
                 ->route('languages.translations.index', ['language' => $request->get('language'), 'group' => $request->get('group'), 'filter' => $request->get('filter')]);
@@ -62,29 +61,42 @@ class LanguageTranslationController extends Controller
         return view('translation::languages.translations.create', compact('language', 'arr'));	
     }
 
-    public function store(TranslationRequest $request, $language)
-    {
-        if ($request->filled('group')) {
-            $namespace = $request->has('namespace') && $request->get('namespace') ? "{$request->get('namespace')}::" : '';
-            $this->translation->addGroupTranslation($language, "{$namespace}{$request->get('group')}", $request->get('key'), $request->get('value') ?: '');
-        } else {
-            $this->translation->addSingleTranslation($language, 'single', $request->get('key'), $request->get('value') ?: '');
-        }
+    public function updateTranslation(Request $request, $language, $group, $key) {
+        $languages = Language::get();	
+        $languageArr = [];
+        $translations = [];	
 
-        return redirect()
-            ->route('languages.translations.index', $language)
-            ->with('success', __('New translation added successfull 🙌'));
+        foreach($languages as $i => $lang){	
+            if($lang['name'] !== Null){	
+                $translationValue = Language::where('language', $lang['language'])
+                ->first()
+                ->translations()
+                ->where('group', $group)
+                ->where('key', $key)
+                ->orderBy('status', 'asc')
+                ->select('value')
+                ->first()
+                ->value;
+
+                $translations[$i] = [
+                    'language' => $lang['language'],
+                    'value' => $translationValue
+                ];
+
+                $languageArr[$i] = $lang['language'];
+            }
+        }	
+        return view('translation::languages.translations.update', compact('language', 'group', 'key', 'translations'));	
     }
 
     public function storeAll(TranslationRequestAll $request, $language){	
         	
-        $languages = Language::get();	
+        $languages = Language::get();
         if ($request->filled('group')) {	
             $namespace = $request->has('namespace') && $request->get('namespace') ? "{$request->get('namespace')}::" : '';	
             foreach($languages as $i => $lang){	
                 $this->translation->addGroupTranslation($lang->name, strtolower("{$namespace}{$request->get('group')}"), strtolower($request->get('key')), $request['value'.$i]);	
-            }	
-            	
+            }
         } else {	
             foreach($languages as $i => $lang){	
                 $this->translation->addSingleTranslation($lang->name, 'single', strtolower($request->get('key')), $request['value'.$i]);	
