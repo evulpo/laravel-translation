@@ -159,7 +159,7 @@ nav a:hover {
 }
 
 .button {
-    @apply bg-transparent text-grey-darker py-2 px-4 border border-grey rounded text-sm font-bold no-underline
+    @apply bg-transparent text-grey-darker py-2 px-4 border border-grey rounded text-sm font-bold no-underline m-1
 }
 
 .button:hover {
