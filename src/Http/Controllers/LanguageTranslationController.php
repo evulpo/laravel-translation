@@ -99,7 +99,7 @@ class LanguageTranslationController extends Controller
             }
         } else {	
             foreach($languages as $i => $lang){	
-                $this->translation->addSingleTranslation($lang->name, 'single',$request->get('key'), $request['value'.$i]);	
+                $this->translation->addSingleTranslation($lang->name, 'single', $request->get('key'), $request['value'.$i]);	
             }	
         }	
         return redirect()	
