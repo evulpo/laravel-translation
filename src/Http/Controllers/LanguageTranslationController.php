@@ -5,6 +5,7 @@ namespace JoeDixon\Translation\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
 use JoeDixon\Translation\Drivers\Translation;
 use JoeDixon\Translation\Http\Requests\TranslationRequest;
@@ -23,6 +24,13 @@ class LanguageTranslationController extends Controller
 
     public function index(Request $request, $language)
     {
+        $queryString = $request->getQueryString();
+        if ($queryString != null) {
+            $request->session()->put('translationsQuery', $queryString);
+        } else {
+            $request->session()->remove('translationsQuery');
+        }
+
         if ($request->has('language') && $request->get('language') !== $language) {
             return redirect()
                 ->route('languages.translations.index', ['language' => $request->get('language'), 'group' => $request->get('group'), 'filter' => $request->get('filter')]);
@@ -90,7 +98,6 @@ class LanguageTranslationController extends Controller
     }
 
     public function storeAll(TranslationRequestAll $request, $language){	
-        	
         $languages = Language::get();
         if ($request->filled('group')) {	
             $namespace = $request->has('namespace') && $request->get('namespace') ? "{$request->get('namespace')}::" : '';	
@@ -101,10 +108,13 @@ class LanguageTranslationController extends Controller
             foreach($languages as $i => $lang){	
                 $this->translation->addSingleTranslation($lang->name, 'single', $request->get('key'), $request['value'.$i]);	
             }	
-        }	
-        return redirect()	
-            ->route('languages.translations.index', $language)	
-            ->with('success', __('New translations added successfull 🙌'));
+        }
+
+        $url = route('languages.translations.index', $language);
+        if ($request->session()->has('translationsQuery')) {
+            $url .= '?' . $request->session()->get('translationsQuery');
+        }
+        return Redirect::to($url)->with('success', __('New translations added successfully 🙌'));
 
     }
 
