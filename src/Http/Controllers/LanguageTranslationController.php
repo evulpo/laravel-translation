@@ -95,11 +95,11 @@ class LanguageTranslationController extends Controller
         if ($request->filled('group')) {	
             $namespace = $request->has('namespace') && $request->get('namespace') ? "{$request->get('namespace')}::" : '';	
             foreach($languages as $i => $lang){	
-                $this->translation->addGroupTranslation($lang->name, strtolower("{$namespace}{$request->get('group')}"), strtolower($request->get('key')), $request['value'.$i]);	
+                $this->translation->addGroupTranslation($lang->name,"{$namespace}{$request->get('group')}", $request->get('key'), $request['value'.$i]);	
             }
         } else {	
             foreach($languages as $i => $lang){	
-                $this->translation->addSingleTranslation($lang->name, 'single', strtolower($request->get('key')), $request['value'.$i]);	
+                $this->translation->addSingleTranslation($lang->name, 'single', $request->get('key'), $request['value'.$i]);	
             }	
         }	
         return redirect()	
