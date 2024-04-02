@@ -211,11 +211,23 @@ class Database extends Translation implements DriverInterface
             return $this->getSingleTranslationsFor($language);
         }
 
-        return $translations->map(function ($translations, $group) {
-            return $translations->mapWithKeys(function ($translation) {
-                return [$translation->key => $translation->value];
+        $this->checkAndSetSessionVariable();
+
+        if(!session('translation_enabled')){
+            return $translations->map(function ($translations, $group) {
+                return $translations->mapWithKeys(function ($translation) {
+                    return [$translation->key => $translation->group . '.' . $translation->key];
+                });
             });
-        });
+        }
+        else
+        {
+            return $translations->map(function ($translations, $group) {
+                return $translations->mapWithKeys(function ($translation) {
+                    return [$translation->key => $translation->value];
+                });
+            });
+        }
     }
 
     /**
@@ -233,11 +245,23 @@ class Database extends Translation implements DriverInterface
             ->get()
             ->groupBy('group');
 
-        return $translations->map(function ($translations) {
-            return $translations->mapWithKeys(function ($translation) {
-                return [$translation->key => $translation->value];
+        $this->checkAndSetSessionVariable();
+
+        if(!session('translation_enabled')){
+            return $translations->map(function ($translations) {
+                return $translations->mapWithKeys(function ($translation) {
+                    return [$translation->key => $translation->group . '.' .  $translation->key];
+                });
             });
-        });
+        }
+        else
+        {                
+            return $translations->map(function ($translations) {
+                return $translations->mapWithKeys(function ($translation) {
+                    return [$translation->key => $translation->value];
+                });
+            });
+        }
     }
 
     /**
@@ -286,5 +310,12 @@ class Database extends Translation implements DriverInterface
         return $groups->filter(function ($key) {
             return $key === '';
         })->count() > 0;
+    }
+
+    public function checkAndSetSessionVariable()
+    {
+        if(!session()->has('translation_enabled')){
+            session(['translation_enabled' => true]);
+        }
     }
 }
